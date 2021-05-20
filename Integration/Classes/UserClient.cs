@@ -18,11 +18,8 @@ namespace Integration.Classes
 
         public async Task<List<User>> GetUsersAsync()
         {
-            using (var httpClient = _client)
-            {
-                var response = await httpClient.GetAsync("users");
-                return JsonConvert.DeserializeObject<List<User>>(await response.Content.ReadAsStringAsync());
-            }
+            var response = await _client.GetAsync("users");
+            return JsonConvert.DeserializeObject<List<User>>(await response.Content.ReadAsStringAsync());
         }
     }
 }

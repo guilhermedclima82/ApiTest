@@ -21,7 +21,7 @@ namespace Services.Classes
         {
             _userClient = userClient;
             _caching = caching;
-            _userClient = userClient;
+            _logger = logger;
         }
 
         public async Task<List<User>> GetUsersAsync()

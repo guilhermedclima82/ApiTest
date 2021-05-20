@@ -18,11 +18,9 @@ namespace Integration.Classes
 
         public async Task<List<Photo>> GetPhotosAsync()
         {
-            using (var httpClient = _client)
-            {
-                var response = await httpClient.GetAsync("photos");
-                return JsonConvert.DeserializeObject<List<Photo>>(await response.Content.ReadAsStringAsync());
-            }
+
+            var response = await _client.GetAsync("photos");
+            return JsonConvert.DeserializeObject<List<Photo>>(await response.Content.ReadAsStringAsync());
         }
     }
 }
