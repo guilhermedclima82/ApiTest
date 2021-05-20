@@ -18,7 +18,6 @@ namespace Integration.Classes
 
         public async Task<List<Photo>> GetPhotosAsync()
         {
-
             var response = await _client.GetAsync("photos");
             return JsonConvert.DeserializeObject<List<Photo>>(await response.Content.ReadAsStringAsync());
         }
