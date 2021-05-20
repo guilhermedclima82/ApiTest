@@ -28,7 +28,8 @@ namespace Services.Classes
         {
             try
             {
-                return await _caching.GetOrSetObjectFromCacheAsync(PhotoKeyCache, 20, GetPhotos);
+                var ret =  await _caching.GetOrSetObjectFromCacheAsync(PhotoKeyCache, 20, GetPhotos);
+                return ret.Take(500).ToList();
             }
             catch (Exception err)
             {
