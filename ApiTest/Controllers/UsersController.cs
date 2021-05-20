@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ApiTest.Controllers
 {
@@ -14,11 +10,13 @@ namespace ApiTest.Controllers
     {
         private readonly ILogger<UsersController> _logger;
         private readonly IUserServices _userService;
+
         public UsersController(ILogger<UsersController> logger, IUserServices userServices)
         {
             _logger = logger;
             _userService = userServices;
         }
+
         [HttpGet]
         [Route("GetUsers")]
         public JsonResult Get()
@@ -26,6 +24,7 @@ namespace ApiTest.Controllers
             var ret = _userService.GetUsersAsync();
             return Json(ret.Result);
         }
+
         [HttpGet]
         [Route("GetUserById")]
         public JsonResult GetById(int Id)

@@ -5,7 +5,6 @@ using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Services.Classes
@@ -15,21 +14,21 @@ namespace Services.Classes
         private readonly IUserClient _userClient;
         private readonly ICaching _caching;
         private string UserKeyCache => "UserService";
+
         public UserService(IUserClient userClient, ICaching caching)
         {
             _userClient = userClient;
             _caching = caching;
         }
+
         public async Task<List<User>> GetUsersAsync()
         {
             try
             {
                 return await _caching.GetOrSetObjectFromCacheAsync(UserKeyCache, 20, GetUsers);
-
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -43,11 +42,10 @@ namespace Services.Classes
             }
             catch (Exception)
             {
-
                 throw;
             }
-           
         }
+
         private async Task<List<User>> GetUsers()
         {
             return await _userClient.GetUsersAsync();

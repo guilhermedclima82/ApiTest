@@ -45,6 +45,7 @@ namespace Services.Classes
                 throw;
             }
         }
+
         public async Task<Album> GetAlbumsByUserIdAsync(int UserId)
         {
             try

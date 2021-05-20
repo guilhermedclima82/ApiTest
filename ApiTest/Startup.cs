@@ -45,7 +45,6 @@ namespace ApiTest
             services.AddSingleton<IAlbumsService, AlbumsService>();
             services.AddSingleton<ICaching, Caching>();
 
-
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(c =>
             {
