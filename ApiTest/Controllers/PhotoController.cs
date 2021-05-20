@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Services.Interfaces;
 
 namespace ApiTest.Controllers
@@ -8,12 +7,10 @@ namespace ApiTest.Controllers
     [Route("[controller]")]
     public class PhotoController : Controller
     {
-        private readonly ILogger<PhotoController> _logger;
         private readonly IPhotosService _photosServices;
 
-        public PhotoController(ILogger<PhotoController> logger, IPhotosService photosServices)
+        public PhotoController(IPhotosService photosServices)
         {
-            _logger = logger;
             _photosServices = photosServices;
         }
 

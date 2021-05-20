@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Services.Interfaces;
 
 namespace ApiTest.Controllers
@@ -8,12 +7,10 @@ namespace ApiTest.Controllers
     [Route("[controller]")]
     public class UsersController : Controller
     {
-        private readonly ILogger<UsersController> _logger;
         private readonly IUserServices _userService;
 
-        public UsersController(ILogger<UsersController> logger, IUserServices userServices)
+        public UsersController(IUserServices userServices)
         {
-            _logger = logger;
             _userService = userServices;
         }
 

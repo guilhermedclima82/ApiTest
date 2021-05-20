@@ -1,5 +1,6 @@
 ﻿using EasyMemoryCache;
 using Integration.Interfaces;
+using Microsoft.Extensions.Logging;
 using Model;
 using Services.Interfaces;
 using System;
@@ -13,12 +14,14 @@ namespace Services.Classes
     {
         private readonly IPhotosClient _photosClient;
         private readonly ICaching _caching;
+        private readonly ILogger<PhotosService> _logger;
         private string PhotoKeyCache => "PhotoService";
 
-        public PhotosService(IPhotosClient photoClient, ICaching caching)
+        public PhotosService(IPhotosClient photoClient, ICaching caching, ILogger<PhotosService> logger)
         {
             _photosClient = photoClient;
             _caching = caching;
+            _logger = logger;
         }
 
         public async Task<List<Photo>> GetPhotosAsync()
@@ -27,8 +30,9 @@ namespace Services.Classes
             {
                 return await _caching.GetOrSetObjectFromCacheAsync(PhotoKeyCache, 20, GetPhotos);
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                logger(err.Message);
                 throw;
             }
         }
@@ -40,8 +44,9 @@ namespace Services.Classes
                 var objPhoto = await _caching.GetOrSetObjectFromCacheAsync(PhotoKeyCache, 20, GetPhotos);
                 return objPhoto.FirstOrDefault(s => s.Id == Id);
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                logger(err.Message);
                 throw;
             }
         }
@@ -53,8 +58,9 @@ namespace Services.Classes
                 var objPhoto = await _caching.GetOrSetObjectFromCacheAsync(PhotoKeyCache, 20, GetPhotos);
                 return objPhoto.FirstOrDefault(s => s.AlbumId == AlbumId);
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                logger(err.Message);
                 throw;
             }
         }
@@ -62,6 +68,11 @@ namespace Services.Classes
         private async Task<List<Photo>> GetPhotos()
         {
             return await _photosClient.GetPhotosAsync();
+        }
+
+        private void logger(string Error)
+        {
+            _logger.LogInformation(Error);
         }
     }
 }

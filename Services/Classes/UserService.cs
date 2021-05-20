@@ -1,5 +1,6 @@
 ﻿using EasyMemoryCache;
 using Integration.Interfaces;
+using Microsoft.Extensions.Logging;
 using Model;
 using Services.Interfaces;
 using System;
@@ -13,12 +14,14 @@ namespace Services.Classes
     {
         private readonly IUserClient _userClient;
         private readonly ICaching _caching;
+        private readonly ILogger<IUserClient> _logger;
         private string UserKeyCache => "UserService";
 
-        public UserService(IUserClient userClient, ICaching caching)
+        public UserService(IUserClient userClient, ICaching caching, ILogger<IUserClient> logger)
         {
             _userClient = userClient;
             _caching = caching;
+            _userClient = userClient;
         }
 
         public async Task<List<User>> GetUsersAsync()
@@ -27,8 +30,9 @@ namespace Services.Classes
             {
                 return await _caching.GetOrSetObjectFromCacheAsync(UserKeyCache, 20, GetUsers);
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                logger(err.Message);
                 throw;
             }
         }
@@ -40,8 +44,9 @@ namespace Services.Classes
                 var objUsers = await _caching.GetOrSetObjectFromCacheAsync(UserKeyCache, 20, GetUsers);
                 return objUsers.FirstOrDefault(s => s.Id == Id);
             }
-            catch (Exception)
+            catch (Exception err)
             {
+                logger(err.Message);
                 throw;
             }
         }
@@ -49,6 +54,11 @@ namespace Services.Classes
         private async Task<List<User>> GetUsers()
         {
             return await _userClient.GetUsersAsync();
+        }
+
+        private void logger(string Error)
+        {
+            _logger.LogInformation(Error);
         }
     }
 }
