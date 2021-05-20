@@ -9,7 +9,6 @@ namespace Services.Interfaces
         Task<List<Photo>> GetPhotosAsync();
 
         Task<Photo> GetPhotosByIdAsync(int Id);
-
-        Task<Photo> GetPhotosByAlbumIdAsync(int AlbumId);
+        Task<List<Photo>> GetPhotosByAlbumIdAsync(int AlbumId);
     }
 }

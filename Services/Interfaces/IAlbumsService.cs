@@ -10,6 +10,6 @@ namespace Services.Interfaces
 
         Task<Album> GetAlbumsByIdAsync(int Id);
 
-        Task<Album> GetAlbumsByUserIdAsync(int UserId);
+        Task<List<Album>> GetAlbumsByUserIdAsync(int UserId);
     }
 }

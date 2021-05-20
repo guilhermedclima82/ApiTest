@@ -53,12 +53,12 @@ namespace Services.Classes
             }
         }
 
-        public async Task<Album> GetAlbumsByUserIdAsync(int UserId)
+        public async Task<List<Album>> GetAlbumsByUserIdAsync(int UserId)
         {
             try
             {
                 var objAlbums = await _caching.GetOrSetObjectFromCacheAsync(AlbumsKeyCache, 20, GetAlbums);
-                return objAlbums.FirstOrDefault(s => s.UserId == UserId);
+                return objAlbums.Where(s => s.UserId == UserId).ToList();
             }
             catch (Exception err)
             {

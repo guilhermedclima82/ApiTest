@@ -52,12 +52,12 @@ namespace Services.Classes
             }
         }
 
-        public async Task<Photo> GetPhotosByAlbumIdAsync(int AlbumId)
+        public async Task<List<Photo>> GetPhotosByAlbumIdAsync(int AlbumId)
         {
             try
             {
                 var objPhoto = await _caching.GetOrSetObjectFromCacheAsync(PhotoKeyCache, 20, GetPhotos);
-                return objPhoto.FirstOrDefault(s => s.AlbumId == AlbumId);
+                return objPhoto.Where(s => s.AlbumId == AlbumId).ToList();
             }
             catch (Exception err)
             {

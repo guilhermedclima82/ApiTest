@@ -29,5 +29,12 @@ namespace ApiTest.Controllers
             var ret = _photosServices.GetPhotosByIdAsync(Id);
             return Json(ret.Result);
         }
+        [HttpGet]
+        [Route("GetPhotosByAlbumId")]
+        public JsonResult GetPhotosByAlbumId(int AlbumId)
+        {
+            var ret = _photosServices.GetPhotosByAlbumIdAsync(AlbumId);
+            return Json(ret.Result);
+        }
     }
 }

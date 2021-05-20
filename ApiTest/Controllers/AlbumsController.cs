@@ -29,5 +29,13 @@ namespace ApiTest.Controllers
             var ret = _albumsService.GetAlbumsByIdAsync(Id);
             return Json(ret.Result);
         }
+
+        [HttpGet]
+        [Route("GetAlbumsByUserId")]
+        public JsonResult GetAlbumsByUserId(int UserId)
+        {
+            var ret = _albumsService.GetAlbumsByUserIdAsync(UserId);
+            return Json(ret.Result);
+        }
     }
 }

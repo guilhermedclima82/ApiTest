@@ -18,7 +18,7 @@ namespace Integration.Classes
 
         public async Task<List<Album>> GetAlbumsAsync()
         {
-            var response = await _client.GetAsync("photos");
+            var response = await _client.GetAsync("albums");
             return JsonConvert.DeserializeObject<List<Album>>(await response.Content.ReadAsStringAsync());
         }
     }
