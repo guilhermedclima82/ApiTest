@@ -3,3 +3,13 @@
 ################################################################################
 
 /ApiTest/bin/Debug/net5.0
+/.vs/ApiTest
+/ApiTest/obj
+/Integration/bin/Debug/net5.0
+/Integration/obj
+/Model/bin/Debug/net5.0
+/Model/obj/Debug/net5.0
+/Model/obj
+/Services/bin/Debug/net5.0
+/Services/obj
+/Utils/obj
